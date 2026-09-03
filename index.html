@@ -112,6 +112,13 @@
     color:var(--muted);
     margin:0;
   }
+  .identity .credibility{
+    font-size:12px;
+    color:var(--muted);
+    margin:8px 0 0;
+    padding-top:8px;
+    border-top:1px solid var(--line);
+  }
 
   /* --- Quick actions --- */
   .quick-actions{
@@ -174,6 +181,10 @@
     font-size:13px;
     border-bottom:1px solid var(--line);
   }
+  .hours-row.today{
+    background:var(--paper-2);
+  }
+  .hours-row.today .day{color:var(--red);}
   .hours-row:last-child{border-bottom:none;}
   .hours-row .day{font-weight:600;}
   .hours-row .time{color:var(--muted);text-align:right;line-height:1.5;}
@@ -293,7 +304,14 @@
     text-align:center;
     font-size:11px;
     color:var(--muted);
-    padding-bottom:24px;
+    padding-bottom:4px;
+  }
+  .legal-line{
+    text-align:center;
+    font-size:10px;
+    color:var(--muted);
+    padding:0 24px 24px;
+    opacity:0.8;
   }
 </style>
 </head>
@@ -322,6 +340,7 @@
     <h1>Sébastien Toulet</h1>
     <p class="role">Agent Général</p>
     <p class="org">Generali Assurances</p>
+    <p class="credibility">26 ans d'expérience · Particuliers &amp; Entreprises</p>
   </div>
 
   <!-- QUICK ACTIONS -->
@@ -340,18 +359,18 @@
       <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm.75 5v5.4l4 2.4-.75 1.2L11 13V7h1.75z"/></svg></div>
       <div class="label">
         <div class="title">Horaires d'ouverture</div>
-        <div class="sub">Ouvert aujourd'hui</div>
+        <div class="sub" id="hours-status">Vérification…</div>
       </div>
       <div class="chevron"></div>
     </div>
     <div class="section-body">
-      <div class="hours-row"><span class="day">Lundi</span><span class="time">9:00 – 12:00<br>14:00 – 18:00</span></div>
-      <div class="hours-row"><span class="day">Mardi</span><span class="time">9:00 – 12:00<br>14:00 – 18:00</span></div>
-      <div class="hours-row"><span class="day">Mercredi</span><span class="time">9:00 – 12:00<br>14:00 – 18:00</span></div>
-      <div class="hours-row"><span class="day">Jeudi</span><span class="time">9:00 – 12:00<br>14:00 – 18:00</span></div>
-      <div class="hours-row"><span class="day">Vendredi</span><span class="time">9:00 – 12:00<br>14:00 – 18:00</span></div>
-      <div class="hours-row"><span class="day">Samedi</span><span class="time">Fermé</span></div>
-      <div class="hours-row"><span class="day">Dimanche</span><span class="time">Fermé</span></div>
+      <div class="hours-row" data-day="1"><span class="day">Lundi</span><span class="time">9:00 – 12:00<br>14:00 – 18:00</span></div>
+      <div class="hours-row" data-day="2"><span class="day">Mardi</span><span class="time">9:00 – 12:00<br>14:00 – 18:00</span></div>
+      <div class="hours-row" data-day="3"><span class="day">Mercredi</span><span class="time">9:00 – 12:00<br>14:00 – 18:00</span></div>
+      <div class="hours-row" data-day="4"><span class="day">Jeudi</span><span class="time">9:00 – 12:00<br>14:00 – 18:00</span></div>
+      <div class="hours-row" data-day="5"><span class="day">Vendredi</span><span class="time">9:00 – 12:00<br>14:00 – 18:00</span></div>
+      <div class="hours-row" data-day="6"><span class="day">Samedi</span><span class="time">Fermé</span></div>
+      <div class="hours-row" data-day="0"><span class="day">Dimanche</span><span class="time">Fermé</span></div>
     </div>
   </div>
 
@@ -432,11 +451,17 @@
     <div class="icon-btn" onclick="showQR()" aria-label="Afficher le QR code" title="QR code">
       <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm10-2h2v2h-2v-2zm4 0h2v2h-2v-2zm-4 4h2v2h-2v-2zm4 0h2v2h-2v-2zm-2 4h4v2h-4v-2z"/></svg>
     </div>
+    <div class="icon-btn" onclick="shareCard()" aria-label="Partager cette carte" title="Partager">
+      <svg viewBox="0 0 24 24"><path d="M18 16.1c-.7 0-1.4.3-1.9.7l-7.1-4.1c.1-.2.1-.5.1-.7s0-.5-.1-.7l7-4.1c.5.5 1.2.8 2 .8 1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3c0 .2 0 .5.1.7L8.1 9.9C7.6 9.3 6.9 9 6.1 9c-1.7 0-3 1.3-3 3s1.3 3 3 3c.8 0 1.5-.3 2-.8l7 4.2c-.1.2-.1.4-.1.6 0 1.6 1.3 3 3 3s3-1.3 3-3-1.3-3-3-3z"/></svg>
+    </div>
   </div>
 
   <div class="agency-line">
     <img src="data:image/png;base64,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" alt="Generali" style="height:14px;vertical-align:-2px;margin-right:6px;opacity:0.6;">
     Villefranche-sur-Saône
+  </div>
+  <div class="legal-line">
+    Agent Général d'Assurances · ORIAS 07 020 008 (orias.fr)
   </div>
 
 </div>
@@ -471,6 +496,50 @@ function showQR(){
   const url = encodeURIComponent(window.location.href);
   window.open("https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + url, "_blank");
 }
+function shareCard(){
+  if(navigator.share){
+    navigator.share({
+      title:"Sébastien Toulet — Agent Général Generali",
+      text:"Voici ma carte de contact",
+      url:window.location.href
+    }).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(window.location.href).then(()=>{
+      alert("Lien copié dans le presse-papiers");
+    });
+  }
+}
+
+// Horaires en temps réel
+(function(){
+  const schedule = {
+    1:[[9,0,12,0],[14,0,18,0]],
+    2:[[9,0,12,0],[14,0,18,0]],
+    3:[[9,0,12,0],[14,0,18,0]],
+    4:[[9,0,12,0],[14,0,18,0]],
+    5:[[9,0,12,0],[14,0,18,0]],
+    6:[],
+    0:[]
+  };
+  const now = new Date();
+  const day = now.getDay();
+  const minutesNow = now.getHours()*60 + now.getMinutes();
+  const todaySlots = schedule[day];
+
+  let isOpen = false;
+  for(const [h1,m1,h2,m2] of todaySlots){
+    const start = h1*60+m1, end = h2*60+m2;
+    if(minutesNow >= start && minutesNow < end){ isOpen = true; break; }
+  }
+
+  const statusEl = document.getElementById('hours-status');
+  if(statusEl){
+    statusEl.textContent = isOpen ? "Ouvert actuellement" : "Fermé actuellement";
+  }
+
+  const row = document.querySelector('.hours-row[data-day="'+day+'"]');
+  if(row){ row.classList.add('today'); }
+})();
 </script>
 
 </body>
