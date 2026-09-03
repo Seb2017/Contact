@@ -216,6 +216,34 @@
     border-radius:100px;
   }
 
+  /* --- Review CTA --- */
+  .review{
+    margin:16px 24px 0;
+    padding:18px 20px;
+    border-radius:var(--radius);
+    background:#fff;
+    border:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    gap:14px;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .review .stars{
+    display:flex;gap:2px;flex-shrink:0;
+  }
+  .review .stars svg{width:16px;height:16px;fill:#f2a900;}
+  .review .text{flex:1;}
+  .review .text .title{font-weight:600;font-size:14px;margin-bottom:2px;}
+  .review .text .sub{font-size:12px;color:var(--muted);}
+  .review .arrow{
+    width:14px;height:14px;
+    border-right:2px solid var(--muted);
+    border-bottom:2px solid var(--muted);
+    transform:rotate(-45deg);
+    flex-shrink:0;
+  }
+
   /* --- Social --- */
   .social{
     display:flex;gap:10px;
@@ -362,6 +390,22 @@
       Découvrir le placement financier →
     </a>
   </div>
+
+  <!-- REVIEW -->
+  <a class="review" href="https://search.google.com/local/writereview?placeid=ChIJndKqWECF9EcRneJXaLGmD0A&source=g.page.m._&laa=merchant-review-solicitation" target="_blank" rel="noopener">
+    <span class="stars">
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-4-6.3 4 1.7-7L2 9.5l7.1-.6z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-4-6.3 4 1.7-7L2 9.5l7.1-.6z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-4-6.3 4 1.7-7L2 9.5l7.1-.6z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-4-6.3 4 1.7-7L2 9.5l7.1-.6z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-4-6.3 4 1.7-7L2 9.5l7.1-.6z"/></svg>
+    </span>
+    <span class="text">
+      <div class="title">Laisser un avis Google</div>
+      <div class="sub">Votre retour compte beaucoup</div>
+    </span>
+    <span class="arrow"></span>
+  </a>
 
   <!-- SOCIAL -->
   <div class="social">
