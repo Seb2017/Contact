@@ -617,6 +617,9 @@ function shareCard(){
   };
   // Fermetures exceptionnelles : {from:"2026-12-24", to:"2026-12-31", label:"Congés"}
   const closures = [];
+  // Ponts automatiques (lundi avant un mardi férié, vendredi après un jeudi férié).
+  // Pour rester ouvert un jour de pont : ajouter sa date, ex. "2027-11-12"
+  const openBridges = [];
 
   const DAY = 86400000;
   const days = ["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
@@ -651,8 +654,13 @@ function shareCard(){
   function closedReason(d){
     const key = iso(d);
     for(const c of closures){ if(key >= c.from && key <= c.to) return c.label || "Fermeture exceptionnelle"; }
-    const y = new Date(d).getUTCFullYear();
-    return holidays(y)[key] || null;
+    const holidayOf = x => holidays(new Date(x).getUTCFullYear())[iso(x)];
+    if(holidayOf(d)) return holidayOf(d);
+    if(!openBridges.includes(key)){
+      if(dow(d) === 1 && holidayOf(d+DAY)) return "Pont – " + holidayOf(d+DAY);
+      if(dow(d) === 5 && holidayOf(d-DAY)) return "Pont – " + holidayOf(d-DAY);
+    }
+    return null;
   }
   function slots(d){ return closedReason(d) ? [] : schedule[dow(d)]; }
   const hm = (h,m) => h + "h" + String(m).padStart(2,"0");
@@ -691,16 +699,34 @@ function shareCard(){
     if(isOpen) statusEl.classList.add("open-now");
   }
 
-  // Prochaine fermeture exceptionnelle ou jour férié (sur 21 jours)
+  // Prochaine fermeture (jour férié, pont, congés) sur 21 jours, jours consécutifs regroupés
   const noteEl = document.getElementById('hours-note');
   if(noteEl){
+    const reasonOf = d => schedule[dow(d)].length ? closedReason(d) : null;
     for(let i = 0; i < 21; i++){
-      const d = today + i*DAY;
-      const reason = schedule[dow(d)].length ? closedReason(d) : null;
-      if(!reason) continue;
-      const dt = new Date(d);
-      const when = i === 0 ? "aujourd'hui" : (i === 1 ? "demain" : days[dow(d)] + " " + dt.getUTCDate() + " " + months[dt.getUTCMonth()]);
-      noteEl.textContent = "Agence fermée " + when + " (" + reason + ")";
+      const start = today + i*DAY;
+      if(!reasonOf(start)) continue;
+      let end = start;
+      const reasons = [reasonOf(start)];
+      for(let d = start + DAY; d - start <= 21*DAY; d += DAY){
+        if(!schedule[dow(d)].length) continue;
+        if(!reasonOf(d)) break;
+        end = d; reasons.push(reasonOf(d));
+      }
+      const names = [...new Set(reasons.map(r => r.replace(/^Pont – /, "")))];
+      const label = names.join(", ") + (reasons.some(r => r.startsWith("Pont")) ? " et pont" : "");
+      const fmt = (d, withMonth) => {
+        const dt = new Date(d);
+        return days[dow(d)] + " " + dt.getUTCDate() + (withMonth ? " " + months[dt.getUTCMonth()] : "");
+      };
+      let when;
+      if(start === end){
+        when = i === 0 ? "aujourd'hui" : (i === 1 ? "demain" : fmt(start, true));
+      } else {
+        const sameMonth = new Date(start).getUTCMonth() === new Date(end).getUTCMonth();
+        when = "du " + fmt(start, !sameMonth) + " au " + fmt(end, true);
+      }
+      noteEl.textContent = "Agence fermée " + when + " (" + label + ")";
       noteEl.hidden = false;
       break;
     }
