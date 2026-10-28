@@ -14,6 +14,22 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0e11">
+<meta name="description" content="Sébastien Toulet, Agent Général Generali à Limas / Villefranche-sur-Saône. Assurance, prévoyance et placement pour particuliers et entreprises.">
+<link rel="canonical" href="https://contact.villefranche-generali.fr/">
+<meta property="og:type" content="profile">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Sébastien Toulet Assurances">
+<meta property="og:title" content="Sébastien Toulet — Agent Général Generali">
+<meta property="og:description" content="Protéger vos projets aujourd’hui et demain. Assurance, prévoyance et placement à Limas / Villefranche-sur-Saône.">
+<meta property="og:url" content="https://contact.villefranche-generali.fr/">
+<meta property="og:image" content="https://contact.villefranche-generali.fr/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Logo Sébastien Toulet Assurances">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sébastien Toulet — Agent Général Generali">
+<meta name="twitter:description" content="Protéger vos projets aujourd’hui et demain. Assurance, prévoyance et placement à Limas / Villefranche-sur-Saône.">
+<meta name="twitter:image" content="https://contact.villefranche-generali.fr/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -216,6 +232,15 @@
   }
   .hours-row.today .day{color:#fff;}
   .hours-row:last-child{border-bottom:none;}
+  .hours-note{
+    padding:12px 18px;
+    font-size:12.5px;
+    color:var(--ink);
+    background:rgba(200,16,46,0.14);
+    border-bottom:1px solid var(--line);
+    box-shadow:inset 3px 0 0 var(--red);
+  }
+  .hours-note[hidden]{display:none;}
   .hours-row .day{font-weight:600;color:var(--silver);}
   .hours-row .time{color:var(--muted);text-align:right;line-height:1.5;}
   .contact-item{
@@ -407,6 +432,9 @@
     <a class="qa-btn" href="mailto:stoulet@agence.generali.fr" aria-label="Envoyer un email">
       <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z" fill="none"/><path d="M4 6h16v12H4zM4 6l8 7 8-7" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>
     </a>
+    <a class="qa-btn" href="https://wa.me/message/5E7ICTD76NI3K1" target="_blank" rel="noopener" aria-label="Écrire sur WhatsApp">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.3.2-.4.1-.1 0-.3 0-.4-.1-.1-.5-1.3-.7-1.8-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2 1 2.4c.1.1 1.6 2.5 3.9 3.5.5.2 1 .4 1.3.5.5.2 1 .1 1.4-.1.4-.2 1.4-.6 1.6-1.1.2-.5.2-.9.1-1z"/></svg>
+    </a>
     <a class="qa-btn" href="tel:+33474654654" aria-label="Appeler">
       <svg viewBox="0 0 24 24"><path fill="#fff" d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1z"/></svg>
     </a>
@@ -423,6 +451,7 @@
       <div class="chevron"></div>
     </div>
     <div class="section-body">
+      <div class="hours-note" id="hours-note" hidden></div>
       <div class="hours-row" data-day="1"><span class="day">Lundi</span><span class="time">9:00 – 12:00<br>14:00 – 18:00</span></div>
       <div class="hours-row" data-day="2"><span class="day">Mardi</span><span class="time">9:00 – 12:00<br>14:00 – 18:00</span></div>
       <div class="hours-row" data-day="3"><span class="day">Mercredi</span><span class="time">9:00 – 12:00<br>14:00 – 18:00</span></div>
@@ -555,26 +584,7 @@ function toggleSection(id){
   document.getElementById(id).classList.toggle('open');
 }
 function downloadVCard(){
-  const vcard = [
-    "BEGIN:VCARD",
-    "VERSION:3.0",
-    "N:TOULET;Sébastien;;;",
-    "FN:Sébastien Toulet",
-    "ORG:Generali Assurances",
-    "TITLE:Agent Général",
-    "TEL;TYPE=WORK,VOICE:+33474654654",
-    "EMAIL:stoulet@agence.generali.fr",
-    "ADR;TYPE=WORK:;;80 Rue Henri Depagneux;Limas;;69400;France",
-    "URL:https://www.villefranche-generali.fr",
-    "END:VCARD"
-  ].join("\n");
-  const blob = new Blob([vcard], {type:"text/vcard"});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "sebastien-toulet.vcf";
-  a.click();
-  URL.revokeObjectURL(url);
+  window.location.href = "sebastien-toulet.vcf";
 }
 function showQR(){
   const url = encodeURIComponent(window.location.href);
@@ -594,7 +604,7 @@ function shareCard(){
   }
 }
 
-// Horaires en temps réel
+// Horaires en temps réel (heure de Paris, jours fériés et fermetures exceptionnelles)
 (function(){
   const schedule = {
     1:[[9,0,12,0],[14,0,18,0]],
@@ -605,24 +615,98 @@ function shareCard(){
     6:[],
     0:[]
   };
-  const now = new Date();
-  const day = now.getDay();
-  const minutesNow = now.getHours()*60 + now.getMinutes();
-  const todaySlots = schedule[day];
+  // Fermetures exceptionnelles : {from:"2026-12-24", to:"2026-12-31", label:"Congés"}
+  const closures = [];
 
-  let isOpen = false;
-  for(const [h1,m1,h2,m2] of todaySlots){
-    const start = h1*60+m1, end = h2*60+m2;
-    if(minutesNow >= start && minutesNow < end){ isOpen = true; break; }
+  const DAY = 86400000;
+  const days = ["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+  const months = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+
+  function parisNow(){
+    const p = {};
+    new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Paris",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"})
+      .formatToParts(new Date()).forEach(x => p[x.type] = x.value);
+    return {date:Date.UTC(+p.year, p.month-1, +p.day), min:(+p.hour)*60 + (+p.minute)};
+  }
+  const iso = d => new Date(d).toISOString().slice(0,10);
+  const dow = d => new Date(d).getUTCDay();
+
+  function holidays(year){
+    // Dimanche de Pâques (algorithme de Meeus)
+    const a=year%19,b=Math.floor(year/100),c=year%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),
+          g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,
+          m=Math.floor((a+11*h+22*l)/451),month=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1;
+    const easter = Date.UTC(year, month-1, day);
+    const list = {};
+    [["01-01","Jour de l'an"],["05-01","Fête du Travail"],["05-08","Victoire 1945"],["07-14","Fête nationale"],
+     ["08-15","Assomption"],["11-01","Toussaint"],["11-11","Armistice"],["12-25","Noël"]]
+      .forEach(([md,label]) => list[year+"-"+md] = label);
+    list[iso(easter+DAY)] = "Lundi de Pâques";
+    list[iso(easter+39*DAY)] = "Ascension";
+    list[iso(easter+50*DAY)] = "Lundi de Pentecôte";
+    return list;
+  }
+
+  // Raison de fermeture d'un jour normalement ouvert, ou null
+  function closedReason(d){
+    const key = iso(d);
+    for(const c of closures){ if(key >= c.from && key <= c.to) return c.label || "Fermeture exceptionnelle"; }
+    const y = new Date(d).getUTCFullYear();
+    return holidays(y)[key] || null;
+  }
+  function slots(d){ return closedReason(d) ? [] : schedule[dow(d)]; }
+  const hm = (h,m) => h + "h" + String(m).padStart(2,"0");
+  function dayLabel(d, today){
+    const diff = Math.round((d - today)/DAY);
+    if(diff === 0) return "";
+    if(diff === 1) return "demain ";
+    if(diff < 7) return days[dow(d)] + " ";
+    const dt = new Date(d);
+    return days[dow(d)] + " " + dt.getUTCDate() + " " + months[dt.getUTCMonth()] + " ";
+  }
+
+  const now = parisNow();
+  const today = now.date;
+  let isOpen = false, text = "Fermé";
+  for(const [h1,m1,h2,m2] of slots(today)){
+    if(now.min >= h1*60+m1 && now.min < h2*60+m2){ isOpen = true; text = "Ouvert · ferme à " + hm(h2,m2); break; }
+  }
+  if(!isOpen){
+    const reason = schedule[dow(today)].length ? closedReason(today) : null;
+    text = reason ? "Fermé (" + reason + ")" : "Fermé";
+    search:
+    for(let i = 0; i < 60; i++){
+      const d = today + i*DAY;
+      for(const [h1,m1] of slots(d)){
+        if(i === 0 && now.min >= h1*60+m1) continue;
+        text += " · ouvre " + dayLabel(d, today) + "à " + hm(h1,m1);
+        break search;
+      }
+    }
   }
 
   const statusEl = document.getElementById('hours-status');
   if(statusEl){
-    statusEl.textContent = isOpen ? "Ouvert actuellement" : "Fermé actuellement";
+    statusEl.textContent = text;
     if(isOpen) statusEl.classList.add("open-now");
   }
 
-  const row = document.querySelector('.hours-row[data-day="'+day+'"]');
+  // Prochaine fermeture exceptionnelle ou jour férié (sur 21 jours)
+  const noteEl = document.getElementById('hours-note');
+  if(noteEl){
+    for(let i = 0; i < 21; i++){
+      const d = today + i*DAY;
+      const reason = schedule[dow(d)].length ? closedReason(d) : null;
+      if(!reason) continue;
+      const dt = new Date(d);
+      const when = i === 0 ? "aujourd'hui" : (i === 1 ? "demain" : days[dow(d)] + " " + dt.getUTCDate() + " " + months[dt.getUTCMonth()]);
+      noteEl.textContent = "Agence fermée " + when + " (" + reason + ")";
+      noteEl.hidden = false;
+      break;
+    }
+  }
+
+  const row = document.querySelector('.hours-row[data-day="'+dow(today)+'"]');
   if(row){ row.classList.add('today'); }
 })();
 </script>
